@@ -6,7 +6,6 @@ import { AppConfig } from './configs/app.configs';
 import { initProxy } from './libs/proxy/proxy';
 import { initSession } from './libs/session/init-session';
 import { initCorse } from './libs/corse/corse';
-import { initSwagger } from './libs/swagger/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -14,7 +13,6 @@ async function bootstrap() {
   });
 
   await initProxy(app);
-  await initSwagger(app);
   await initSession(app);
 
   app.useGlobalPipes(

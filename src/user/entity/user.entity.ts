@@ -1,4 +1,4 @@
-import { IsEmail, IsPhoneNumber } from 'class-validator';
+import { IsEmail, IsPhoneNumber, IsString } from 'class-validator';
 import {
   Column,
   CreateDateColumn,
@@ -20,6 +20,64 @@ export class User {
   })
   @IsEmail({}, { message: 'Invalid email' })
   email: string;
+
+  @Column({
+    type: 'varchar',
+    length: 60,
+    nullable: false,
+  })
+  @IsString()
+  name: string;
+
+  @Column({
+    type: 'varchar',
+    length: 60,
+    nullable: false,
+  })
+  @IsString()
+  surname: string;
+
+  @Column({
+    type: 'varchar',
+    length: 60,
+    nullable: false,
+  })
+  @IsString()
+  street: string;
+
+  @Column({
+    name: 'zip_code',
+    type: 'varchar',
+    length: 60,
+    nullable: false,
+  })
+  @IsString()
+  zipCode: string;
+
+  @Column({
+    type: 'varchar',
+    length: 60,
+    nullable: false,
+  })
+  @IsString()
+  city: string;
+
+  @Column({
+    name: 'street_number',
+    type: 'varchar',
+    length: 60,
+    nullable: false,
+  })
+  @IsString()
+  streetNumber: string;
+
+  @Column({
+    type: 'varchar',
+    length: 60,
+    nullable: false,
+  })
+  @IsString()
+  state: string;
 
   @Column({
     type: 'varchar',

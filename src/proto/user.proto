@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+package user;
+
+service UserProxyService {
+  rpc ValidateUser (ValidateRequest) returns (ValidateResponse);
+  rpc CreateUser (CreateUserRequest) returns (UserInfo);
+  rpc GetUser (UserIdentity) returns (UserInfo);
+  rpc GetAllUsers (Empty) returns (UserList);
+  rpc UpdateUser (UpdateUserRequest) returns (UserInfo);
+  rpc DeleteUser (UserIdentity) returns (UserIdentity);
+}
+
+message ValidateRequest {
+  string email = 1;
+  string name = 2;
+  string phone = 3;
+  string surname = 4;
+  string street = 5;
+  string city = 6;
+  string state = 7;
+  string zip = 8;
+  string number = 9; 
+}
+
+message CreateUserRequest {
+  string email = 1;
+  string name = 2;
+  string phone = 3;
+  string surname = 4;
+  string street = 5;
+  string city = 6;
+  string state = 7;
+  string zip = 8;
+  string number = 9; 
+}
+
+message UpdateUserRequest {
+  string email = 1;
+  string name = 2;
+  string phone = 3;
+  string surname = 4;
+  string street = 5;
+  string city = 6;
+  string state = 7;
+  string zip = 8;
+  string number = 9; 
+  string id = 10;
+}
+
+message UserIdentity {
+  string email = 1;
+  string id = 2;
+  string phone = 3;
+}
+
+message Empty {}
+
+message UserInfo {
+  string email = 1;
+  string name = 2;
+  string phone = 3;
+  string surname = 4;
+  string street = 5;
+  string city = 6;
+  string state = 7;
+  string zip = 8;
+  string number = 9; 
+  string id = 10;
+}
+
+message UserList {
+  repeated UserInfo users = 1;
+}
+
+message ValidateResponse {
+  bool isValid = 1;
+  string message = 2;
+}

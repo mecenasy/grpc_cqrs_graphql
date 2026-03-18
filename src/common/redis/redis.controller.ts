@@ -26,6 +26,7 @@ export class RedisController {
   @EventPattern(RedisEvent.Remove)
   async remove(data: RedisData) {
     await this.redisService.remove(data);
+    return Promise.resolve({});
   }
 
   @MessagePattern(RedisEvent.CheckExist)

@@ -16,7 +16,7 @@ input CreateUserType {
 
 type Mutation {
   createUser(input: CreateUserType!): UserType!
-  deleteUser(email: String!, id: ID!, phone: String!): String!
+  deleteUser(email: String!, id: ID!, phone: String!): UserIdentityType!
   updateUser(input: UpdateUserType!): UserType!
 }
 
@@ -36,6 +36,12 @@ input UpdateUserType {
   street: String!
   surname: String!
   zip: String!
+}
+
+type UserIdentityType {
+  email: String!
+  id: ID!
+  phone: String!
 }
 
 type UserType {

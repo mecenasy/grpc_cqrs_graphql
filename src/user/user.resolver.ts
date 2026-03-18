@@ -6,7 +6,7 @@ import { UpdateUserCommand } from './commands/impl/update-user.command';
 import { DeleteUserCommand } from './commands/impl/delete-user.command';
 import { GetAllUsersQuery } from './queries/impl/get-all-users.query';
 import { UserIdentityType } from './dto/user-identity.type';
-import { UserType } from './dto/user.type copy';
+import { UserType } from './dto/user.type';
 import { UpdateUserType } from './dto/update-user.type';
 import { CreateUserType } from './dto/update-user.type copy';
 
@@ -47,7 +47,7 @@ export class UsersResolver {
     );
   }
 
-  @Mutation(() => String)
+  @Mutation(() => UserIdentityType)
   async deleteUser(
     @Args('id', { type: () => ID }) id: string,
     @Args('email') email: string,
@@ -57,6 +57,7 @@ export class UsersResolver {
       DeleteUserCommand,
       UserIdentityType
     >(new DeleteUserCommand(id, email, phone));
-    return result.id;
+
+    return result;
   }
 }

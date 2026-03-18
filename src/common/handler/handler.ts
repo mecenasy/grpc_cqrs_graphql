@@ -3,7 +3,7 @@ import { ICommand } from '@nestjs/cqrs';
 import { type ClientGrpc, ClientProxy } from '@nestjs/microservices';
 import { UserProxyServiceClient } from 'src/proto/user';
 import { GrpcProxyKey, ProxyKey } from '../proxy/constance';
-import { lastValueFrom, timeout } from 'rxjs';
+import { firstValueFrom, lastValueFrom, timeout } from 'rxjs';
 import { RedisData, SaveRedisData } from '../redis/model/redis-data';
 import { RedisEvent } from '../redis/model/redis-event';
 
@@ -36,7 +36,7 @@ export abstract class Handler<T extends ICommand, S> implements OnModuleInit {
   }
 
   public async removeFromCache(data: RedisData): Promise<void> {
-    await lastValueFrom(
+    await firstValueFrom(
       this.client
         .send<object, RedisData>(RedisEvent.Remove, data)
         .pipe(timeout(5000)),

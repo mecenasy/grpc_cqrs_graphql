@@ -100,11 +100,17 @@ export class UserGrpcController implements UserProxyServiceController {
 
   @GrpcMethod('UserProxyService', 'DeleteUser')
   async deleteUser(request: UserIdentity): Promise<UserIdentity> {
+    console.log('🚀 ~ UserGrpcController ~ deleteUser ~ request:', request);
     await this.userRepository.delete(request.id);
-    return request;
+    console.log('🚀 ~ UserGrpcController ~ deleteUser ~ request:', request);
+    return {
+      email: request.email || '',
+      id: request.id || '',
+      phone: request.phone || '',
+    };
   }
 
-  @GrpcMethod('UserProxyService', 'GetUsers')
+  @GrpcMethod('UserProxyService', 'GetAllUsers')
   async getAllUsers(): Promise<UserList> {
     const users = await this.userRepository.find();
     return {

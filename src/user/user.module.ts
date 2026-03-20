@@ -6,16 +6,18 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { UpdateUserHandler } from './commands/handlers/update-user.handler';
 import { DeleteUserHandler } from './commands/handlers/delete-user.handler';
 import { GetAllUsersHandler } from './queries/handlers/get-all-users.handler';
+import { SearchUserHandler } from './queries/handlers/search-user.handler';
 
 @Global()
 @Module({
   imports: [CqrsModule],
   providers: [
     GetUserHandler,
+    GetAllUsersHandler,
+    SearchUserHandler,
     CreateUserHandler,
     UpdateUserHandler,
     DeleteUserHandler,
-    GetAllUsersHandler,
     UsersResolver,
   ],
 })

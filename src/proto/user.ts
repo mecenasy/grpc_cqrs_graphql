@@ -8,8 +8,13 @@
 import type { Metadata } from '@grpc/grpc-js';
 import { GrpcMethod, GrpcStreamMethod } from '@nestjs/microservices';
 import { Observable } from 'rxjs';
+import { Empty as Empty1 } from '../../google/protobuf/empty';
 
 export const protobufPackage = 'user';
+
+export interface SearchRequest {
+  query: string;
+}
 
 export interface ValidateRequest {
   email: string;
@@ -93,7 +98,7 @@ export interface UserProxyServiceClient {
 
   getUser(request: UserIdentity, metadata?: Metadata): Observable<UserInfo>;
 
-  getAllUsers(request: Empty, metadata?: Metadata): Observable<UserList>;
+  getAllUsers(request: Empty1, metadata?: Metadata): Observable<UserList>;
 
   updateUser(
     request: UpdateUserRequest,
@@ -104,6 +109,11 @@ export interface UserProxyServiceClient {
     request: UserIdentity,
     metadata?: Metadata,
   ): Observable<UserIdentity>;
+
+  searchUsers(
+    request: SearchRequest,
+    metadata?: Metadata,
+  ): Observable<UserList>;
 }
 
 export interface UserProxyServiceController {
@@ -126,7 +136,7 @@ export interface UserProxyServiceController {
   ): Promise<UserInfo> | Observable<UserInfo> | UserInfo;
 
   getAllUsers(
-    request: Empty,
+    request: Empty1,
     metadata?: Metadata,
   ): Promise<UserList> | Observable<UserList> | UserList;
 
@@ -139,6 +149,11 @@ export interface UserProxyServiceController {
     request: UserIdentity,
     metadata?: Metadata,
   ): Promise<UserIdentity> | Observable<UserIdentity> | UserIdentity;
+
+  searchUsers(
+    request: SearchRequest,
+    metadata?: Metadata,
+  ): Promise<UserList> | Observable<UserList> | UserList;
 }
 
 export function UserProxyServiceControllerMethods() {
@@ -150,6 +165,7 @@ export function UserProxyServiceControllerMethods() {
       'getAllUsers',
       'updateUser',
       'deleteUser',
+      'searchUsers',
     ];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(

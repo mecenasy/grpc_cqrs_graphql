@@ -10,6 +10,11 @@ service UserProxyService {
   rpc GetAllUsers (google.protobuf.Empty) returns (UserList);
   rpc UpdateUser (UpdateUserRequest) returns (UserInfo);
   rpc DeleteUser (UserIdentity) returns (UserIdentity);
+  rpc SearchUsers (SearchRequest) returns (UserList);
+}
+
+message SearchRequest {
+  string query = 1;
 }
 
 message ValidateRequest {

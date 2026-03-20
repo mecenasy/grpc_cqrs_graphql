@@ -14,7 +14,7 @@ import type {
   UpdateUserRequest,
 } from 'src/proto/user';
 import { User } from 'src/user/entity/user.entity';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 
 @Controller()
 export class UserGrpcController implements UserProxyServiceController {
@@ -100,9 +100,7 @@ export class UserGrpcController implements UserProxyServiceController {
 
   @GrpcMethod('UserProxyService', 'DeleteUser')
   async deleteUser(request: UserIdentity): Promise<UserIdentity> {
-    console.log('🚀 ~ UserGrpcController ~ deleteUser ~ request:', request);
     await this.userRepository.delete(request.id);
-    console.log('🚀 ~ UserGrpcController ~ deleteUser ~ request:', request);
     return {
       email: request.email || '',
       id: request.id || '',
@@ -113,6 +111,25 @@ export class UserGrpcController implements UserProxyServiceController {
   @GrpcMethod('UserProxyService', 'GetAllUsers')
   async getAllUsers(): Promise<UserList> {
     const users = await this.userRepository.find();
+    return {
+      users: users.map((user) => ({
+        ...user,
+        zip: user.zipCode,
+        number: user.streetNumber,
+      })),
+    };
+  }
+
+  @GrpcMethod('UserProxyService', 'SearchUsers')
+  async searchUsers(request: { query: string }): Promise<UserList> {
+    const users = await this.userRepository.find({
+      where: [
+        { email: Like(`%${request.query}%`) },
+        { name: Like(`%${request.query}%`) },
+        { surname: Like(`%${request.query}%`) },
+      ],
+    });
+
     return {
       users: users.map((user) => ({
         ...user,

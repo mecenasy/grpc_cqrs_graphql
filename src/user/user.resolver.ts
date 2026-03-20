@@ -8,7 +8,8 @@ import { GetAllUsersQuery } from './queries/impl/get-all-users.query';
 import { UserIdentityType } from './dto/user-identity.type';
 import { UserType } from './dto/user.type';
 import { UpdateUserType } from './dto/update-user.type';
-import { CreateUserType } from './dto/update-user.type copy';
+import { CreateUserType } from './dto/create-user.type.';
+import { SearchUserQuery } from './queries/impl/search-user.query';
 
 @Resolver(() => UserType)
 export class UsersResolver {
@@ -59,5 +60,14 @@ export class UsersResolver {
     >(new DeleteUserCommand(id, email, phone));
 
     return result;
+  }
+
+  @Query(() => [UserType], { name: 'queryUsers' })
+  async searchUsers(@Args('query') query: string) {
+    const result = await this.queryBus.execute<
+      SearchUserQuery,
+      { users: UserType[] }
+    >(new SearchUserQuery(query));
+    return result.users;
   }
 }

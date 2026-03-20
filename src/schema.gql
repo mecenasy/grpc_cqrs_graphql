@@ -21,6 +21,7 @@ type Mutation {
 }
 
 type Query {
+  queryUsers(query: String!): [UserType!]!
   user(id: ID!): UserType!
   users: [UserType!]!
 }

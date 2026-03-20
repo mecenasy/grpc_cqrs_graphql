@@ -1,12 +1,13 @@
 import { Global, Module } from '@nestjs/common';
-import { UsersResolver } from './user.resolver';
-import { GetUserHandler } from './queries/handlers/get-user.handler';
-import { CreateUserHandler } from './commands/handlers/create-user.handler';
 import { CqrsModule } from '@nestjs/cqrs';
-import { UpdateUserHandler } from './commands/handlers/update-user.handler';
-import { DeleteUserHandler } from './commands/handlers/delete-user.handler';
+import { GetUserHandler } from './queries/handlers/get-user.handler';
 import { GetAllUsersHandler } from './queries/handlers/get-all-users.handler';
 import { SearchUserHandler } from './queries/handlers/search-user.handler';
+import { CreateUserHandler } from './commands/handlers/create-user.handler';
+import { UpdateUserHandler } from './commands/handlers/update-user.handler';
+import { DeleteUserHandler } from './commands/handlers/delete-user.handler';
+import { QueryUsersResolver } from './query-user.resolver';
+import { CommandUsersResolver } from './command-user.resolver';
 
 @Global()
 @Module({
@@ -18,7 +19,8 @@ import { SearchUserHandler } from './queries/handlers/search-user.handler';
     CreateUserHandler,
     UpdateUserHandler,
     DeleteUserHandler,
-    UsersResolver,
+    CommandUsersResolver,
+    QueryUsersResolver,
   ],
 })
 export class UserModule {}

@@ -16,7 +16,7 @@ export class GetAllUsersHandler extends Handler<GetAllUsersQuery, UserList> {
     super(grpcClient, client);
   }
 
-  async execute(query: GetAllUsersQuery) {
+  async execute() {
     const users = await lastValueFrom(this.gRpcService.getAllUsers({}));
 
     return users;

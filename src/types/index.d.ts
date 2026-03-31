@@ -50,5 +50,8 @@ declare namespace NodeJS {
 
     JWT_SECRET_KEY: string;
     JWT_EXPIRE_AT: ms.StringValue;
+
+    GRPC_URL: string;
+    GRPC_PORT: string;
   }
 }

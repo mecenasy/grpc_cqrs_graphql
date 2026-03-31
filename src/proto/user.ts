@@ -86,74 +86,41 @@ export interface ValidateResponse {
 export const USER_PACKAGE_NAME = 'user';
 
 export interface UserProxyServiceClient {
-  validateUser(
-    request: ValidateRequest,
-    metadata?: Metadata,
-  ): Observable<ValidateResponse>;
+  validateUser(request: ValidateRequest, metadata?: Metadata): Observable<ValidateResponse>;
 
-  createUser(
-    request: CreateUserRequest,
-    metadata?: Metadata,
-  ): Observable<UserInfo>;
+  createUser(request: CreateUserRequest, metadata?: Metadata): Observable<UserInfo>;
 
   getUser(request: UserIdentity, metadata?: Metadata): Observable<UserInfo>;
 
   getAllUsers(request: Empty1, metadata?: Metadata): Observable<UserList>;
 
-  updateUser(
-    request: UpdateUserRequest,
-    metadata?: Metadata,
-  ): Observable<UserInfo>;
+  updateUser(request: UpdateUserRequest, metadata?: Metadata): Observable<UserInfo>;
 
-  deleteUser(
-    request: UserIdentity,
-    metadata?: Metadata,
-  ): Observable<UserIdentity>;
+  deleteUser(request: UserIdentity, metadata?: Metadata): Observable<UserIdentity>;
 
-  searchUsers(
-    request: SearchRequest,
-    metadata?: Metadata,
-  ): Observable<UserList>;
+  searchUsers(request: SearchRequest, metadata?: Metadata): Observable<UserList>;
 }
 
 export interface UserProxyServiceController {
   validateUser(
     request: ValidateRequest,
     metadata?: Metadata,
-  ):
-    | Promise<ValidateResponse>
-    | Observable<ValidateResponse>
-    | ValidateResponse;
+  ): Promise<ValidateResponse> | Observable<ValidateResponse> | ValidateResponse;
 
-  createUser(
-    request: CreateUserRequest,
-    metadata?: Metadata,
-  ): Promise<UserInfo> | Observable<UserInfo> | UserInfo;
+  createUser(request: CreateUserRequest, metadata?: Metadata): Promise<UserInfo> | Observable<UserInfo> | UserInfo;
 
-  getUser(
-    request: UserIdentity,
-    metadata?: Metadata,
-  ): Promise<UserInfo> | Observable<UserInfo> | UserInfo;
+  getUser(request: UserIdentity, metadata?: Metadata): Promise<UserInfo> | Observable<UserInfo> | UserInfo;
 
-  getAllUsers(
-    request: Empty1,
-    metadata?: Metadata,
-  ): Promise<UserList> | Observable<UserList> | UserList;
+  getAllUsers(request: Empty1, metadata?: Metadata): Promise<UserList> | Observable<UserList> | UserList;
 
-  updateUser(
-    request: UpdateUserRequest,
-    metadata?: Metadata,
-  ): Promise<UserInfo> | Observable<UserInfo> | UserInfo;
+  updateUser(request: UpdateUserRequest, metadata?: Metadata): Promise<UserInfo> | Observable<UserInfo> | UserInfo;
 
   deleteUser(
     request: UserIdentity,
     metadata?: Metadata,
   ): Promise<UserIdentity> | Observable<UserIdentity> | UserIdentity;
 
-  searchUsers(
-    request: SearchRequest,
-    metadata?: Metadata,
-  ): Promise<UserList> | Observable<UserList> | UserList;
+  searchUsers(request: SearchRequest, metadata?: Metadata): Promise<UserList> | Observable<UserList> | UserList;
 }
 
 export function UserProxyServiceControllerMethods() {
@@ -168,27 +135,13 @@ export function UserProxyServiceControllerMethods() {
       'searchUsers',
     ];
     for (const method of grpcMethods) {
-      const descriptor: any = Reflect.getOwnPropertyDescriptor(
-        constructor.prototype,
-        method,
-      );
-      GrpcMethod('UserProxyService', method)(
-        constructor.prototype[method],
-        method,
-        descriptor,
-      );
+      const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
+      GrpcMethod('UserProxyService', method)(constructor.prototype[method], method, descriptor);
     }
     const grpcStreamMethods: string[] = [];
     for (const method of grpcStreamMethods) {
-      const descriptor: any = Reflect.getOwnPropertyDescriptor(
-        constructor.prototype,
-        method,
-      );
-      GrpcStreamMethod('UserProxyService', method)(
-        constructor.prototype[method],
-        method,
-        descriptor,
-      );
+      const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
+      GrpcStreamMethod('UserProxyService', method)(constructor.prototype[method], method, descriptor);
     }
   };
 }
